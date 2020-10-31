@@ -5,9 +5,9 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-token = os.getenv('token')
-group_id = os.getenv('group_id')
-topics = os.getenv('topics')
+token = os.getenv('TOKEN')
+group_id = os.getenv('GROUP_ID')
+topics = list(map(int, (os.getenv('TOPICS').split(","))))
 
 
 def topics_iterate():
@@ -38,14 +38,13 @@ def delete_comments(comment_content, topic_id):
             time.sleep(1)
             i = comments_list.index(item)
             if comments_list[i]['date'] <= target_time:
-                pass
-                # # Удалить комментарий к записи сообщества который старше 8 дней.
-                # requests.post('https://api.vk.com/method/board.deleteComment?'
-                #               'group_id=' + str(group_id) + '&'
-                #               'topic_id=' + str(topic_id) + '&'
-                #               'comment_id=' + str(item['id']) + '&'
-                #               'access_token=' + token + '&'
-                #               'v=5.124')
+                # Удалить комментарий к записи сообщества который старше 8 дней.
+                requests.post('https://api.vk.com/method/board.deleteComment?'
+                              'group_id=' + str(group_id) + '&'
+                              'topic_id=' + str(topic_id) + '&'
+                              'comment_id=' + str(item['id']) + '&'
+                              'access_token=' + token + '&'
+                              'v=5.124')
                 return
     elif comments_list[-1]['date'] < target_time:
         print('elif ' + str(topic_id))
@@ -54,12 +53,12 @@ def delete_comments(comment_content, topic_id):
             i = comments_list.index(item)
             if comments_list[i]['date'] <= target_time:
                 # Удалить комментарий к записи сообщества который старше 8 дней.
-                # requests.post('https://api.vk.com/method/board.deleteComment?'
-                #               'group_id=' + str(group_id) + '&'
-                #               'topic_id=' + str(topic_id) + '&'
-                #               'comment_id=' + str(item['id']) + '&'
-                #               'access_token=' + token + '&'
-                #               'v=5.124')
+                requests.post('https://api.vk.com/method/board.deleteComment?'
+                              'group_id=' + str(group_id) + '&'
+                              'topic_id=' + str(topic_id) + '&'
+                              'comment_id=' + str(item['id']) + '&'
+                              'access_token=' + token + '&'
+                              'v=5.124')
                 return get_comments(topic_id)
 
 
