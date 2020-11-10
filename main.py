@@ -16,7 +16,7 @@ def topics_iterate():
 
 
 def get_comments(topic_id):
-    # Получение комментариев из записей сообщества
+    # Get comments from community
     response = requests.post('https://api.vk.com/method/board.getComments?'
                              'group_id=' + str(group_id) + '&'
                              'topic_id=' + str(topic_id) + '&'
@@ -38,7 +38,7 @@ def delete_comments(comment_content, topic_id):
             time.sleep(1)
             i = comments_list.index(item)
             if comments_list[i]['date'] <= target_time:
-                # Удалить комментарий к записи сообщества который старше 8 дней.
+                # Delete comment that older than 8 days.
                 requests.post('https://api.vk.com/method/board.deleteComment?'
                               'group_id=' + str(group_id) + '&'
                               'topic_id=' + str(topic_id) + '&'
@@ -52,7 +52,7 @@ def delete_comments(comment_content, topic_id):
             time.sleep(1)
             i = comments_list.index(item)
             if comments_list[i]['date'] <= target_time:
-                # Удалить комментарий к записи сообщества который старше 8 дней.
+                # Delete comment that older than 8 days.
                 requests.post('https://api.vk.com/method/board.deleteComment?'
                               'group_id=' + str(group_id) + '&'
                               'topic_id=' + str(topic_id) + '&'
