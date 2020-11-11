@@ -33,26 +33,32 @@ def delete_comments(comment_content, topic_id):
     target_time = (int(time.time()) - 691200)
     comments_list.pop(0)
     if comments_list[-1]['date'] >= target_time:
-        print('In if ' + str(topic_id))
+        print('\nTopic id: ' + str(topic_id))
         for item in comments_list:
             time.sleep(1)
             i = comments_list.index(item)
             if comments_list[i]['date'] <= target_time:
                 # Delete comment that older than 8 days.
+                print("Deleted post ID: " + str(comments_list[i]['id'])
+                      + " from user id: " + str(comments_list[i]['from_id'])
+                      + " post timestamp: " + str(comments_list[i]['date']))
                 requests.post('https://api.vk.com/method/board.deleteComment?'
                               'group_id=' + str(group_id) + '&'
                               'topic_id=' + str(topic_id) + '&'
                               'comment_id=' + str(item['id']) + '&'
                               'access_token=' + token + '&'
                               'v=5.124')
-                return
+        return
     elif comments_list[-1]['date'] < target_time:
-        print('elif ' + str(topic_id))
+        print('\nTopic id: ' + str(topic_id))
         for item in comments_list:
             time.sleep(1)
             i = comments_list.index(item)
             if comments_list[i]['date'] <= target_time:
                 # Delete comment that older than 8 days.
+                print("Deleted post ID: " + str(comments_list[i]['id'])
+                      + " from user id: " + str(comments_list[i]['from_id'])
+                      + " post timestamp: " + str(comments_list[i]['date']))
                 requests.post('https://api.vk.com/method/board.deleteComment?'
                               'group_id=' + str(group_id) + '&'
                               'topic_id=' + str(topic_id) + '&'
